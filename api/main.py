@@ -165,7 +165,8 @@ def send_whatsapp_messages():
         message = data['message']
     if 'details' in data:
         resultsOfMessages = []   
-        driver = webdriver.Chrome(service=Service())
+        chrome_driver_path="./chrome.exe"
+        driver = webdriver.Chrome(service=Service(executable_path=chrome_driver_path))
         #intial connect to whatsapp
         driver.get('https://web.whatsapp.com')
         time.sleep(40)
