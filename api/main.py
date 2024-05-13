@@ -344,5 +344,5 @@ def sayHell():
 #         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)  # Set debug=False for production
+    app.run(debug=False)  # Set debug=False for production
     print("her poer 8081")
