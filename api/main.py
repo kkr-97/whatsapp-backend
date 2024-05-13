@@ -193,7 +193,7 @@ def send_whatsapp_file_messages():
     if 'message' in data:
         message = data['message']
         print(message)
-    chrome_driver_path="./chrome.exe"
+    chrome_driver_path="chrome.exe"
 
     # Get the directory of the script
     # directory = os.path.dirname(os.path.realpath(__file__))
