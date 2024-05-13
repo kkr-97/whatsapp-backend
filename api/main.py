@@ -18,7 +18,7 @@ app = Flask(__name__)
 CORS(app)
 
 options = Options() 
-options.add_experimental_option("debuggerAddress","localhost:9000")
+# options.add_experimental_option("debuggerAddress","localhost:9000")
 # options.add_argument("log-level=INFO")
 # options.add_argument("user-data-dir=C:/Users/CHARAN/AppData/Local/Google/Chrome/User Data") #)PATH is path to your chrome profile
 
@@ -166,8 +166,8 @@ def send_whatsapp_messages():
     if 'details' in data:
         resultsOfMessages = []   
         chrome_driver_path="./chrome.exe"
-        # driver = webdriver.Chrome(service=Service(executable_path=chrome_driver_path))
-        driver=webdriver.Chrome(service=Service())
+        driver = webdriver.Chrome(service=ChromeDriverManager.install())
+        # driver=webdriver.Chrome(service=Service())
         #intial connect to whatsapp
         driver.get('https://web.whatsapp.com')
         time.sleep(40)
