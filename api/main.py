@@ -166,12 +166,22 @@ def send_whatsapp_messages():
     if 'details' in data:
         resultsOfMessages = []   
         chrome_driver_path="./chrome.exe"
-        driver = webdriver.Chrome(service=ChromeDriverManager().install())
-        time.sleep(10)
-        # driver=webdriver.Chrome(service=Service())
-        #intial connect to whatsapp
-        driver.get('https://web.whatsapp.com')
-        time.sleep(40)
+        try:
+            driver = webdriver.Chrome(service=ChromeDriverManager().install())
+            time.sleep(10)
+            driver.get('https://web.whatsapp.com')
+            time.sleep(40)
+            # Your WhatsApp message sending logic here
+        except Exception as e:
+            # Log the exception for debugging
+            print(f"Error: {e}")
+
+        # driver = webdriver.Chrome(service=ChromeDriverManager().install())
+        # time.sleep(10)
+        # # driver=webdriver.Chrome(service=Service())
+        # #intial connect to whatsapp
+        # driver.get('https://web.whatsapp.com')
+        # time.sleep(40)
 
         for detail in data['details']:
             phone=detail.get('number')
