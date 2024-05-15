@@ -23,68 +23,22 @@ options = Options()
 # options.add_argument("user-data-dir=C:/Users/CHARAN/AppData/Local/Google/Chrome/User Data") #)PATH is path to your chrome profile
 
 
-def send_message(contact_person,message,driver):
-
-    wait = WebDriverWait(driver, 72)
-    waited=WebDriverWait(driver,40)
-    print("hi")
-    result="Failure"
-
+def send_message(contact_person, message, driver):
+    wait = WebDriverWait(driver, 20)
     try:
-        checkLaunch= wait.until(EC.element_to_be_clickable((By.XPATH,"//div[@class='_ai05']//div[@role='textbox']")))
+        search_box = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@class='_3FRCZ copyable-text selectable-text']")))
+        search_box.clear()
+        search_box.send_keys(contact_person)
+        time.sleep(2)
+        search_box.send_keys(Keys.ENTER)
+        message_box = wait.until(EC.presence_of_element_located((By.XPATH, "//div[@class='_3FRCZ copyable-text selectable-text']")))
+        message_box.send_keys(message)
+        send_button = wait.until(EC.presence_of_element_located((By.XPATH, "//span[@data-icon='send']")))
+        send_button.click()
+        return "Success"
     except Exception as e:
-        print("whatsapp not found",e.message)
-        driver.get('https://web.whatsapp.com')
-        time.sleep(40)
-
-    # contact_person='7674083953'
-    try:
-        searchBox= wait.until(EC.element_to_be_clickable((By.XPATH,"//div[@class='_ai05']//div[@role='textbox']")))
-        print(searchBox)
-        #search for the contact_person
-        searchBox.send_keys(contact_person)
-        print(searchBox)
-        time.sleep(3) 
-        searchBox.send_keys(Keys.RETURN)
-
-        print(f"//span[@title={contact_person}]")
-        print("//span[@title="+ contact_person +"]")
-    except Exception as e:
-        print(e)
-    # if(contact_person.isdigit()):
-    #     contactBox= wait.until(EC.element_to_be_clickable((By.XPATH,f"//span[@title='+91 {contact_person[:5]} {contact_person[5:]}']")))
-    #     contactBox.click()
-    #     print(contactBox)
-    # else:
-    #     contactBox= wait.until(EC.element_to_be_clickable((By.XPATH,f"//span[@title='{contact_person}']")))
-    #     contactBox.click()
-    #     print(contactBox)
-    try:
-        print("came test debug point")
-        if(contact_person.isdigit()):
-            check_contact_exist=waited.until(EC.presence_of_element_located((By.XPATH, f"//div[starts-with(@data-id,'true_91{contact_person[:]}')]")))
-            # check_contact_exist= wait.until(EC.presence_of_element_located((By.XPATH, f"//div[@class='_aou8 _aj_h']//span[@title='+91 {contact_person[:5]} {contact_person[5:]}']")))
-            print(check_contact_exist,"exist or not")
-        # send the message
-        title_box_selector = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@title='Type a message']")))
-        # message="hello all alla lla"
-        for i in range(1):
-            title_box_selector.send_keys(message,Keys.ENTER)
-            title_box_selector.send_keys(Keys.RETURN)
-        result="Success"
-        time.sleep(10)
-    except Exception as e:
-        print(str(e),"not found contact so cant send")
-        result="Failure"
-        print(result)
-        #any data inseatch box xlear it 
-        try:
-            clearButton=waited.until(EC.element_to_be_clickable((By.XPATH,"//span[@data-icon='x-alt']")))
-            clearButton.click()
-        except Exception as e:
-            print(e)
-
-    return result
+        print("Failed to send message:", str(e))
+        return "Failure"
 
 # send_message("8309370811",".")
 # send_message("7674083953","hehe")
